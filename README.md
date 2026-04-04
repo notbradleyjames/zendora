@@ -91,6 +91,11 @@ Zendora uses **Firecrawl** (integrated as an MCP server) for web intelligence ‚Ä
 1. Check `skills/automation-recipes/` for existing recipes
 2. Or build a new one using the templates in `services/ai-automations/`
 
+### Launching Your First Leads?
+1. Review the **[Portfolios Showcase](file:///home/christianantoniazzi98/zendora/portfolios/GUIDE.md)** for strategy.
+2. Use the **[Fiverr Gig Templates](file:///home/christianantoniazzi98/zendora/portfolios/FIVERR_GIG_PROFILES.md)** to post your services.
+3. Preview and capture screenshots of the **[Mock Sites](file:///home/christianantoniazzi98/zendora/portfolios/mock-sites/)** for your gallery.
+
 ---
 
 ## üåê Brand Identity
