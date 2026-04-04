@@ -1,0 +1,74 @@
+{
+  "search_result": {
+    "success": true,
+    "data": [
+      {
+        "url": "https://www.reddit.com/r/automation/comments/1qj355h/best_ai_tools_and_automation_agents_in_2026_that/",
+        "title": "Best AI Tools and Automation Agents in 2026 That Actually Save Time",
+        "description": "In 2026, meeting assistants like Fathom and automation and AI agents like Workbeaver and Manus/Genspark will be the true time-savers. Although ..."
+      },
+      {
+        "url": "https://medium.com/artificial-corner/the-best-ai-tools-for-2026-933535a44f8b",
+        "title": "The Best AI Tools for 2026 - Medium",
+        "description": "Without a doubt, ChatGPT, Gemini, and Claude are the best AI tools to date. They can provide answers to your everyday questions, do web searches ..."
+      },
+      {
+        "url": "https://www.sigmamind.ai/blog/best-ai-agent-builder-tools",
+        "title": "9 Best AI Agent Builder Tools for 2026 (Tried & Tested)",
+        "description": "Explore the 9 Best AI Agent Builder platforms for 2026\u2014voice and chat. Compare features, pricing, and enterprise readiness."
+      }
+    ],
+    "id": "019d53dc-21bb-7119-8eac-54e0dd365e74"
+  },
+  "scrape_result_metadata": {
+    "twitter:card": "summary_large_image",
+    "twitter:description": "Search the web, scrape any page, and interact with it \u2014 all through one API.",
+    "description": "Search the web, scrape any page, and interact with it \u2014 all through one API., Decimal AI Chat Widget",
+    "twitter:image:height": "630",
+    "google-site-verification": "Y83UZz1dXMKuT59lnLY_7umo6LJorqIwuP_2rFX6_eE",
+    "ogUrl": "https://docs.firecrawl.dev/introduction",
+    "og:title": "Quickstart | Firecrawl",
+    "language": "en",
+    "twitter:image": "https://firecrawl.mintlify.app/mintlify-assets/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DGet%2BStarted%26title%3DQuickstart%26description%3DSearch%2Bthe%2Bweb%252C%2Bscrape%2Bany%2Bpage%252C%2Band%2Binteract%2Bwith%2Bit%2B%25E2%2580%2594%2Ball%2Bthrough%2Bone%2BAPI.%26logoLight%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253Dc45b3c967c19a39190e76fe8e9c2ed5a%26logoDark%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo-dark.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253D3fee4abe033bd3c26e8ad92043a91c17%26primaryColor%3D%2523000%26lightColor%3D%2523fff%26darkColor%3D%2523000%26backgroundLight%3D%2523ffffff%26backgroundDark%3D%25230e0e10&w=1200&q=100",
+    "apple-mobile-web-app-title": "Firecrawl Docs",
+    "viewport": [
+      "width=device-width, initial-scale=1, viewport-fit=cover",
+      "width=device-width, initial-scale=1"
+    ],
+    "og:site_name": "Firecrawl Docs",
+    "og:image:height": "630",
+    "og:type": "website",
+    "ogImage": "https://firecrawl.mintlify.app/mintlify-assets/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DGet%2BStarted%26title%3DQuickstart%26description%3DSearch%2Bthe%2Bweb%252C%2Bscrape%2Bany%2Bpage%252C%2Band%2Binteract%2Bwith%2Bit%2B%25E2%2580%2594%2Ball%2Bthrough%2Bone%2BAPI.%26logoLight%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253Dc45b3c967c19a39190e76fe8e9c2ed5a%26logoDark%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo-dark.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253D3fee4abe033bd3c26e8ad92043a91c17%26primaryColor%3D%2523000%26lightColor%3D%2523fff%26darkColor%3D%2523000%26backgroundLight%3D%2523ffffff%26backgroundDark%3D%25230e0e10&w=1200&q=100",
+    "twitter:title": "Quickstart | Firecrawl",
+    "ogDescription": "Search the web, scrape any page, and interact with it \u2014 all through one API.",
+    "ogTitle": "Quickstart | Firecrawl",
+    "generator": "Mintlify",
+    "title": "Quickstart | Firecrawl",
+    "msapplication-config": "/mintlify-assets/_mintlify/favicons/firecrawl/XqnL63rz4lpKQF4P/_generated/favicon/browserconfig.xml",
+    "og:image:width": "1200",
+    "application-name": "Firecrawl Docs",
+    "msapplication-TileColor": "#000",
+    "og:description": "Search the web, scrape any page, and interact with it \u2014 all through one API.",
+    "canonical": "https://docs.firecrawl.dev/introduction",
+    "og:image": "https://firecrawl.mintlify.app/mintlify-assets/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DGet%2BStarted%26title%3DQuickstart%26description%3DSearch%2Bthe%2Bweb%252C%2Bscrape%2Bany%2Bpage%252C%2Band%2Binteract%2Bwith%2Bit%2B%25E2%2580%2594%2Ball%2Bthrough%2Bone%2BAPI.%26logoLight%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253Dc45b3c967c19a39190e76fe8e9c2ed5a%26logoDark%3Dhttps%253A%252F%252Fmintcdn.com%252Ffirecrawl%252FiilnMwCX-8eR1yOO%252Flogo%252Flogo-dark.png%253Ffit%253Dmax%2526auto%253Dformat%2526n%253DiilnMwCX-8eR1yOO%2526q%253D85%2526s%253D3fee4abe033bd3c26e8ad92043a91c17%26primaryColor%3D%2523000%26lightColor%3D%2523fff%26darkColor%3D%2523000%26backgroundLight%3D%2523ffffff%26backgroundDark%3D%25230e0e10&w=1200&q=100",
+    "next-size-adjust": [
+      "",
+      ""
+    ],
+    "charset": "utf-8",
+    "og:url": "https://docs.firecrawl.dev/introduction",
+    "twitter:image:width": "1200",
+    "favicon": "https://docs.firecrawl.dev/mintlify-assets/_mintlify/favicons/firecrawl/XqnL63rz4lpKQF4P/_generated/favicon/favicon-16x16.png",
+    "scrapeId": "019d53dc-266a-73bb-93f9-d63a085ec122",
+    "sourceURL": "https://docs.firecrawl.dev",
+    "url": "https://docs.firecrawl.dev/introduction",
+    "statusCode": 200,
+    "contentType": "text/html; charset=utf-8",
+    "proxyUsed": "basic",
+    "cacheState": "hit",
+    "cachedAt": "2026-04-03T12:43:26.709Z",
+    "creditsUsed": 1,
+    "concurrencyLimited": false
+  },
+  "scrape_result_markdown": "[Skip to main content](https://docs.firecrawl.dev/introduction#content-area)\n\n[Firecrawl Docs home page![light logo](https://mintcdn.com/firecrawl/iilnMwCX-8eR1yOO/logo/logo.png?fit=max&auto=format&n=iilnMwCX-8eR1yOO&q=85&s=c45b3c967c19a39190e76fe8e9c2ed5a)![dark logo](https://mintcdn.com/firecrawl/iilnMwCX-8eR1yOO/logo/logo-dark.png?fit=max&auto=format&n=iilnMwCX-8eR1yOO&q=85&s=3fee4abe033bd3c26e8ad92043a91c17)](https://firecrawl.dev/)\n\nv2\n![US](https://d3gk2c5xim1je2.cloudfront.net/flags/US.sv...\n[Content Truncated]"
+}
