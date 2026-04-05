@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/portfolios/mock-sites/vexel-ai/$1" }
+  ]
+}
