@@ -1,3 +1,8 @@
+import { SpatialScene } from './lib/spatial-scene.js';
+
+// Boot spatial background
+const _scene = new SpatialScene(document.getElementById('spatial-bg'));
+
 // Virtual File System representing Zendora
 const fileSystem = {
   id: 'root',

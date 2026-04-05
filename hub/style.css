@@ -1,41 +1,28 @@
 :root {
-  /* Mac-like colors & glassmorphism settings */
-  --bg-color: #f3f3f3;
-  --window-bg: rgba(250, 250, 255, 0.7);
-  --window-border: rgba(255, 255, 255, 0.4);
-  --window-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --sidebar-bg: rgba(235, 235, 240, 0.5);
-  --sidebar-active: rgba(0, 0, 0, 0.08);
-  --text-main: #1d1d1f;
-  --text-muted: #86868b;
-  --border-light: rgba(0, 0, 0, 0.05);
+  /* Spatial dark theme — always dark (canvas bg is rgb(8,6,14)) */
+  --bg-color: #08060e;
+  --window-bg: rgba(14, 12, 22, 0.78);
+  --window-border: rgba(255, 255, 255, 0.08);
+  --window-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.7),
+                   0 0 0 1px rgba(255, 255, 255, 0.04);
+  --sidebar-bg: rgba(18, 15, 30, 0.6);
+  --sidebar-active: rgba(255, 255, 255, 0.07);
+  --text-main: #eeeef0;
+  --text-muted: #7a7a8a;
+  --border-light: rgba(255, 255, 255, 0.06);
 
-  --accent-color: #0071e3;
-  
+  --accent-color: #6d5bff;
+  --accent-glow: rgba(109, 91, 255, 0.35);
+
   --folder-ai: linear-gradient(135deg, #FF6B35 0%, #F77F00 100%);
   --folder-design: linear-gradient(135deg, #c471ed 0%, #f64f59 100%);
   --folder-marketing: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
   --folder-social: linear-gradient(135deg, #0cebeb 0%, #20e3b2 100%);
-  --folder-system: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+  --folder-system: linear-gradient(135deg, #3a3a5c 0%, #1e1e38 100%);
   --folder-tools: linear-gradient(135deg, #1fa2ff 0%, #12d8fa 50%, #a6ffcb 100%);
-  --folder-default: linear-gradient(135deg, #8ba8df 0%, #4facfe 100%);
-  
-  --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
+  --folder-default: linear-gradient(135deg, #5b6abf 0%, #4facfe 100%);
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #1a1a1a;
-    --window-bg: rgba(30, 30, 32, 0.75);
-    --window-border: rgba(255, 255, 255, 0.1);
-    --window-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    --sidebar-bg: rgba(40, 40, 44, 0.5);
-    --sidebar-active: rgba(255, 255, 255, 0.1);
-    --text-main: #f5f5f7;
-    --text-muted: #a1a1a6;
-    --border-light: rgba(255, 255, 255, 0.1);
-  }
+  --transition-fast: 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 * {
@@ -57,33 +44,16 @@ body {
   align-items: center;
 }
 
-/* Vibrant abstract desktop background */
-.desktop-bg {
-  position: absolute;
+/* Spatial 3D Background Canvas */
+#spatial-bg {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: radial-gradient(circle at 50% 50%, #0c0f1a, #000);
-  overflow: hidden;
-}
-
-.blob {
-  position: absolute;
-  filter: blur(100px);
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #6a11cb; animation-delay: 0s; }
-.blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #2575fc; animation-delay: -5s; }
-.blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #FF6B35; animation-delay: -10s; }
-
-@keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(5%, 5%) scale(1.1); }
+  display: block;
+  background: rgb(8, 6, 14);
 }
 
 /* Glass Window */
@@ -275,15 +245,22 @@ body {
   background: var(--sidebar-active);
 }
 
+.grid-item:hover .folder-icon {
+  transform: perspective(800px) rotateX(-10deg) rotateY(12deg) translateZ(12px);
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55))
+          drop-shadow(0 0 18px rgba(109, 91, 255, 0.25));
+}
+
 .grid-item:active .folder-icon {
-  transform: scale(0.95);
+  transform: perspective(800px) rotateX(-4deg) rotateY(4deg) scale(0.94);
 }
 
 .folder-icon {
   width: 80px;
   height: 65px;
   position: relative;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.32s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .folder-back, .folder-front {
