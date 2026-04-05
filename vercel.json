@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/portfolios/mock-sites/vexel-ai/$1" }
+    { "source": "/(.*)", "destination": "/hub/$1" }
   ]
 }
