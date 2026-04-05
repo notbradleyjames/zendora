@@ -14,10 +14,10 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
 
 // ---------- Scroll Reveal ----------
 const revealEls = document.querySelectorAll(
-  '.hero-tag, .hero-title, .hero-desc, .hero-actions, .hero-stats, .player-card, ' +
+  '.hero-eyebrow, .hero-title, .hero-desc, .hero-actions, .hero-stats, ' +
   '.section-title, .see-all, .section-tag, ' +
-  '.album-card, .feature-card, .artist-card, .pricing-card, ' +
-  '.footer-logo, .footer-tagline, .footer-copy'
+  '.service-card, .work-card, .process-step, .pricing-card, ' +
+  '.contact-box, .footer-wordmark, .footer-tagline, .footer-copy'
 );
 revealEls.forEach((el, i) => {
   el.classList.add('reveal');
