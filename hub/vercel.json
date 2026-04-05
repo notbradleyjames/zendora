@@ -1,5 +1,6 @@
 {
-  "buildCommand": "",
+  "buildCommand": null,
+  "installCommand": "echo skip",
   "outputDirectory": ".",
   "framework": null
 }
