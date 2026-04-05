@@ -19,7 +19,7 @@
   --deep:           #0033aa;
   --glass-bg:       rgba(10,40,100,0.08);
   --glass-blur:     18px;
-  --font:           'Inter', sans-serif;
+  --font:           'Plus Jakarta Sans', sans-serif;
   --radius:         12px;
   --radius-sm:      8px;
 }
@@ -191,8 +191,8 @@ body {
   font-family: 'Courier New', monospace;
 }
 .hero-title {
-  font-size: clamp(44px, 7vw, 96px); font-weight: 800;
-  line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 24px;
+  font-size: clamp(34px, 5vw, 68px); font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 24px;
 }
 .hero-desc {
   font-size: 18px; font-weight: 300; line-height: 1.65;
