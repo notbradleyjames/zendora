@@ -1,196 +1,121 @@
 // ============================================================
 // VEXEL AI — main.js
-// 3D canvas background + scroll/interaction behaviors
+// HD starfield background + scroll/interaction behaviors
 // ============================================================
 
-// ---------- 3D Canvas: Rotating Wireframe Object ----------
+// ---------- HD Starfield Canvas ----------
 
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
-let W, H, cx, cy;
-let mouseX = 0, mouseY = 0;
-let targetRotX = 0, targetRotY = 0;
-let rotX = 0, rotY = 0;
+const DPR = window.devicePixelRatio || 1;
+let W, H;
 
 function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-  cx = W / 2;
-  cy = H / 2;
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width  = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(DPR, DPR);
+  initStars();
 }
-resize();
-window.addEventListener('resize', resize);
 
-window.addEventListener('mousemove', (e) => {
-  mouseX = (e.clientX / W - 0.5) * 2;
-  mouseY = (e.clientY / H - 0.5) * 2;
-});
+// Star pool
+const STAR_COUNT = 320;
+const stars = [];
 
-// Build icosphere-like wireframe geometry
-function buildGeometry() {
-  const verts = [];
-  const edges = [];
+function rand(min, max) {
+  return min + Math.random() * (max - min);
+}
 
-  // Outer ring — horizontal circles at different latitudes
-  const rings = [
-    { y: -0.85, r: 0.52, n: 8 },
-    { y: -0.45, r: 0.88, n: 12 },
-    { y:  0.00, r: 1.00, n: 16 },
-    { y:  0.45, r: 0.88, n: 12 },
-    { y:  0.85, r: 0.52, n: 8 },
-  ];
-
-  const ringStart = [];
-
-  for (const ring of rings) {
-    ringStart.push(verts.length);
-    for (let i = 0; i < ring.n; i++) {
-      const angle = (i / ring.n) * Math.PI * 2;
-      verts.push([
-        Math.cos(angle) * ring.r,
-        ring.y,
-        Math.sin(angle) * ring.r,
-      ]);
+function initStars() {
+  stars.length = 0;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    // Size tiers: most tiny, a handful prominent
+    const tier = Math.random();
+    let radius, baseOpacity;
+    if (tier > 0.97) {
+      // Bright foreground stars (~3%)
+      radius      = rand(1.4, 2.2);
+      baseOpacity = rand(0.75, 1.0);
+    } else if (tier > 0.85) {
+      // Mid stars (~12%)
+      radius      = rand(0.7, 1.3);
+      baseOpacity = rand(0.45, 0.75);
+    } else {
+      // Distant pinpoints (~85%)
+      radius      = rand(0.2, 0.65);
+      baseOpacity = rand(0.15, 0.45);
     }
-  }
 
-  // Connect within each ring
-  for (let ri = 0; ri < rings.length; ri++) {
-    const start = ringStart[ri];
-    const n = rings[ri].n;
-    for (let i = 0; i < n; i++) {
-      edges.push([start + i, start + (i + 1) % n]);
-    }
+    stars.push({
+      x:           rand(0, W),
+      y:           rand(0, H),
+      radius,
+      baseOpacity,
+      opacity:     baseOpacity,
+      // Twinkle params — slow, subtle, each star out of phase
+      twinkleSpeed: rand(0.0004, 0.0018),
+      twinkleAmp:   rand(0.04, 0.18) * baseOpacity,
+      phase:        rand(0, Math.PI * 2),
+      // Tiny drift for depth illusion
+      vx: rand(-0.008, 0.008),
+      vy: rand(-0.004, 0.004),
+    });
   }
-
-  // Connect between adjacent rings (vertical struts)
-  for (let ri = 0; ri < rings.length - 1; ri++) {
-    const startA = ringStart[ri];
-    const nA = rings[ri].n;
-    const startB = ringStart[ri + 1];
-    const nB = rings[ri + 1].n;
-    const step = nB / nA;
-    for (let i = 0; i < nA; i++) {
-      const j = Math.round(i * step) % nB;
-      edges.push([startA + i, startB + j]);
-    }
-  }
-
-  // Top & bottom poles
-  verts.push([0, -1.15, 0]); // top pole
-  const topPole = verts.length - 1;
-  verts.push([0,  1.15, 0]); // bottom pole
-  const botPole = verts.length - 1;
-
-  for (let i = 0; i < rings[0].n; i++) {
-    edges.push([topPole, ringStart[0] + i]);
-  }
-  for (let i = 0; i < rings[4].n; i++) {
-    edges.push([botPole, ringStart[4] + i]);
-  }
-
-  // Inner core lines (sparse)
-  const innerVerts = [];
-  for (let i = 0; i < 6; i++) {
-    const angle = (i / 6) * Math.PI * 2;
-    const iv = verts.length;
-    verts.push([Math.cos(angle) * 0.3, 0, Math.sin(angle) * 0.3]);
-    innerVerts.push(iv);
-  }
-  for (let i = 0; i < innerVerts.length; i++) {
-    edges.push([innerVerts[i], innerVerts[(i + 1) % innerVerts.length]]);
-    edges.push([innerVerts[i], topPole]);
-    edges.push([innerVerts[i], botPole]);
-  }
-
-  return { verts, edges };
 }
 
-const geo = buildGeometry();
-const SCALE = Math.min(window.innerWidth, window.innerHeight) * 0.28;
+let t = 0;
 
-// Matrix multiply helpers
-function rotateX(p, a) {
-  const [x, y, z] = p;
-  return [x, y * Math.cos(a) - z * Math.sin(a), y * Math.sin(a) + z * Math.cos(a)];
-}
-function rotateY(p, a) {
-  const [x, y, z] = p;
-  return [x * Math.cos(a) + z * Math.sin(a), y, -x * Math.sin(a) + z * Math.cos(a)];
-}
-
-function project(p, scale, ox, oy) {
-  const fov = 3.5;
-  const z = p[2] + fov;
-  const px = (p[0] / z) * scale + ox;
-  const py = (p[1] / z) * scale + oy;
-  return { x: px, y: py, z: p[2] };
-}
-
-let autoRot = 0;
-let frame = 0;
-
-function draw() {
-  frame++;
-  requestAnimationFrame(draw);
+function drawStars() {
+  t++;
+  requestAnimationFrame(drawStars);
 
   ctx.clearRect(0, 0, W, H);
 
-  // Ease rotation toward mouse
-  targetRotY = mouseX * 0.6;
-  targetRotX = mouseY * 0.4;
-  rotX += (targetRotX - rotX) * 0.04;
-  rotY += (targetRotY - rotY) * 0.04;
-  autoRot += 0.004;
+  for (const s of stars) {
+    // Twinkle — smooth sine oscillation
+    s.opacity = s.baseOpacity + Math.sin(t * s.twinkleSpeed * 60 + s.phase) * s.twinkleAmp;
+    s.opacity = Math.max(0.02, Math.min(1, s.opacity));
 
-  const scale = Math.min(W, H) * 0.28;
-  const offsetX = W * 0.62;
-  const offsetY = H * 0.5;
+    // Slow drift, wrap at edges
+    s.x += s.vx;
+    s.y += s.vy;
+    if (s.x < 0)  s.x = W;
+    if (s.x > W)  s.x = 0;
+    if (s.y < 0)  s.y = H;
+    if (s.y > H)  s.y = 0;
 
-  // Transform vertices
-  const projected = geo.verts.map((v) => {
-    let p = [...v];
-    p = rotateY(p, autoRot + rotY);
-    p = rotateX(p, rotX);
-    return project(p, scale, offsetX, offsetY);
-  });
+    // Sharp crisp point — no blur, just a tight radial gradient for the
+    // brightest stars to give a natural diffraction glow
+    if (s.radius > 1.2) {
+      const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.radius * 3.5);
+      glow.addColorStop(0,   `rgba(255,255,255,${s.opacity})`);
+      glow.addColorStop(0.35,`rgba(255,255,255,${s.opacity * 0.4})`);
+      glow.addColorStop(1,   'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
+    }
 
-  // Draw edges
-  for (const [a, b] of geo.edges) {
-    const pa = projected[a];
-    const pb = projected[b];
-
-    // Depth-based opacity: fade edges behind center
-    const avgZ = (pa.z + pb.z) / 2;
-    const opacity = Math.max(0.04, Math.min(0.55, (avgZ + 1.4) / 2.8));
-
+    // Solid crisp core
     ctx.beginPath();
-    ctx.moveTo(pa.x, pa.y);
-    ctx.lineTo(pb.x, pb.y);
-    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-    ctx.lineWidth = 0.6;
-    ctx.stroke();
-  }
-
-  // Draw nodes
-  for (const p of projected) {
-    const opacity = Math.max(0.05, Math.min(0.9, (p.z + 1.4) / 2.8));
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.opacity})`;
     ctx.fill();
   }
-
-  // Subtle blue glow at center of object
-  const grad = ctx.createRadialGradient(offsetX, offsetY, 0, offsetX, offsetY, scale * 0.8);
-  grad.addColorStop(0, 'rgba(26, 108, 255, 0.06)');
-  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(offsetX - scale, offsetY - scale, scale * 2, scale * 2);
 }
 
-draw();
+resize();
+window.addEventListener('resize', () => {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); // reset scale before resize reapplies it
+  resize();
+});
+
+drawStars();
 
 // ---------- Navbar scroll behavior ----------
 
