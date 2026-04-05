@@ -66,18 +66,12 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-.nav-logo {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 0.04em;
-  color: var(--white);
-  text-transform: uppercase;
+.nav-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
   cursor: pointer;
-}
-
-.logo-accent {
-  color: var(--white);
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
 }
 
 .nav-links {
