@@ -3,151 +3,291 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vexel AI — Design meets intelligence in 3D space.</title>
-    <meta name="description" content="Vexel is a futuristic AI-powered website framework merging spatial design, interactivity, and intelligent systems. Crafted for forward-thinking brands at the edge of innovation." />
+    <title>Zendora — Music That Moves You</title>
+    <meta name="description" content="Zendora is a premium music streaming platform. Millions of songs, zero limits. Lossless audio, curated playlists, and an experience built for real listeners." />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
 
-    <!-- 3D Canvas Background -->
+    <!-- Starfield Canvas -->
     <canvas id="bg-canvas"></canvas>
+
+    <!-- Aurora blobs -->
+    <div class="aurora">
+      <div class="aurora-blob aurora-1"></div>
+      <div class="aurora-blob aurora-2"></div>
+      <div class="aurora-blob aurora-3"></div>
+    </div>
 
     <!-- Navigation -->
     <nav id="navbar">
       <img src="assets/zendora-logo.svg" alt="Zendora" class="nav-logo-img" />
       <div class="nav-links" id="nav-links">
-        <a href="#about">ABOUT</a>
-        <a href="#features">FEATURES</a>
-        <a href="#use-cases">USE CASES</a>
-        <a href="#cta" class="nav-cta">GET STARTED <span class="nav-arrow">↗</span></a>
+        <a href="#discover">Discover</a>
+        <a href="#features">Features</a>
+        <a href="#artists">Artists</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#pricing" class="nav-cta">Get Started <span>↗</span></a>
       </div>
       <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
       <div class="mobile-menu-header">
         <img src="assets/zendora-logo.svg" alt="Zendora" class="nav-logo-img" />
-        <button class="menu-close" id="menu-close" aria-label="Close menu">✕</button>
+        <button class="menu-close" id="menu-close">✕</button>
       </div>
       <div class="mobile-menu-links">
-        <a href="#about">ABOUT</a>
-        <a href="#features">FEATURES</a>
-        <a href="#use-cases">USE CASES</a>
-        <a href="#cta" class="nav-cta">GET STARTED <span class="nav-arrow">↗</span></a>
+        <a href="#discover">Discover</a>
+        <a href="#features">Features</a>
+        <a href="#artists">Artists</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#pricing" class="nav-cta">Get Started ↗</a>
       </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section id="hero">
-      <div class="scroll-indicator">
-        <span>SCROLL DOWN</span>
-        <div class="scroll-arrow">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5v14M5 12l7 7 7-7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-tag">// NOW STREAMING</div>
+          <h1 class="hero-title">Music that<br /><span class="gradient-text">moves you.</span></h1>
+          <p class="hero-desc">Millions of songs. Zero limits. Lossless audio built for people who actually listen.</p>
+          <div class="hero-actions">
+            <a href="#pricing" class="btn-primary">Start Free Trial</a>
+            <a href="#discover" class="btn-ghost">Explore Music</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-num">80M+</span><span class="stat-label">Songs</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">6M+</span><span class="stat-label">Artists</span></div>
+            <div class="stat-divider"></div>
+            <div class="stat"><span class="stat-num">24bit</span><span class="stat-label">Lossless</span></div>
+          </div>
         </div>
-      </div>
 
-      <div class="hero-content">
-        <div class="hero-left">
-          <div class="hero-tag">// VEXEL AI</div>
-          <h1 class="hero-title">Design meets<br />intelligence in 3D space.</h1>
-        </div>
-        <div class="hero-right">
-          <p class="hero-description">A MODERN FRAMEWORK BUILT FOR AI BRANDS — MINIMAL, DYNAMIC, AND DEEPLY INTERACTIVE. MAKE YOUR PRESENCE FEEL INTELLIGENT FROM THE VERY FIRST PIXEL.</p>
-          <button class="btn-primary">EXPLORE VEXEL</button>
+        <!-- Player Mockup -->
+        <div class="player-card glass-card">
+          <div class="player-album">
+            <div class="album-art album-art-1"></div>
+            <div class="player-playing-badge">▶ PLAYING</div>
+          </div>
+          <div class="player-info">
+            <div class="player-track">Neon Horizons</div>
+            <div class="player-artist">AURORA WAVE</div>
+          </div>
+          <div class="player-progress">
+            <div class="progress-bar"><div class="progress-fill" style="width: 42%"></div></div>
+            <div class="progress-times"><span>1:47</span><span>4:12</span></div>
+          </div>
+          <div class="player-controls">
+            <button class="ctrl-btn">⏮</button>
+            <button class="ctrl-btn ctrl-play">⏸</button>
+            <button class="ctrl-btn">⏭</button>
+            <button class="ctrl-btn ctrl-heart">♥</button>
+          </div>
+          <div class="player-waveform">
+            <div class="wave-bar" style="--h:30%"></div><div class="wave-bar" style="--h:55%"></div>
+            <div class="wave-bar" style="--h:80%"></div><div class="wave-bar active" style="--h:100%"></div>
+            <div class="wave-bar active" style="--h:90%"></div><div class="wave-bar active" style="--h:65%"></div>
+            <div class="wave-bar" style="--h:45%"></div><div class="wave-bar" style="--h:70%"></div>
+            <div class="wave-bar" style="--h:85%"></div><div class="wave-bar" style="--h:50%"></div>
+            <div class="wave-bar" style="--h:35%"></div><div class="wave-bar" style="--h:60%"></div>
+            <div class="wave-bar" style="--h:75%"></div><div class="wave-bar" style="--h:40%"></div>
+            <div class="wave-bar" style="--h:55%"></div><div class="wave-bar" style="--h:90%"></div>
+            <div class="wave-bar" style="--h:70%"></div><div class="wave-bar" style="--h:30%"></div>
+            <div class="wave-bar" style="--h:50%"></div><div class="wave-bar" style="--h:65%"></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section-about">
-      <div class="about-inner">
-        <p class="about-text">Vexel is an AI — a synthetic mind crafted to design and present other intelligent systems. It doesn't serve content; it curates presence. Vexel understands the essence of AI companies and builds visual narratives that match their complexity, speed, and ambition.</p>
-        <div class="about-line"></div>
+    <!-- Trending Section -->
+    <section id="discover" class="section-discover">
+      <div class="section-inner">
+        <div class="section-header">
+          <h2 class="section-title">Trending Now</h2>
+          <a href="#" class="see-all">See all →</a>
+        </div>
+        <div class="album-grid">
+          <div class="album-card glass-card">
+            <div class="album-cover cover-1"></div>
+            <div class="album-meta"><div class="album-name">Midnight Drive</div><div class="album-artist">Luna Eclipse</div></div>
+            <div class="album-play">▶</div>
+          </div>
+          <div class="album-card glass-card">
+            <div class="album-cover cover-2"></div>
+            <div class="album-meta"><div class="album-name">Electric Dreams</div><div class="album-artist">Neon Pulse</div></div>
+            <div class="album-play">▶</div>
+          </div>
+          <div class="album-card glass-card">
+            <div class="album-cover cover-3"></div>
+            <div class="album-meta"><div class="album-name">Cosmos</div><div class="album-artist">Stellar Drift</div></div>
+            <div class="album-play">▶</div>
+          </div>
+          <div class="album-card glass-card">
+            <div class="album-cover cover-4"></div>
+            <div class="album-meta"><div class="album-name">Deep Frequencies</div><div class="album-artist">Void Walker</div></div>
+            <div class="album-play">▶</div>
+          </div>
+          <div class="album-card glass-card">
+            <div class="album-cover cover-5"></div>
+            <div class="album-meta"><div class="album-name">Glass Cities</div><div class="album-artist">Echo Chamber</div></div>
+            <div class="album-play">▶</div>
+          </div>
+          <div class="album-card glass-card">
+            <div class="album-cover cover-6"></div>
+            <div class="album-meta"><div class="album-name">Infrared</div><div class="album-artist">Phantom Signal</div></div>
+            <div class="album-play">▶</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="section-features">
-      <div class="features-inner">
-        <div class="features-headline">
-          <h2 class="features-title">Vexel isn't a tool<br />it's an autonomous AI with a visual language.</h2>
-          <p class="features-sub">It interprets data, form, and function to generate immersive web experiences through motion, geometry, and spatial intelligence. Vexel doesn't just build — it thinks in design.</p>
+      <div class="section-inner">
+        <div class="section-header centered">
+          <div class="section-tag">// WHY ZENDORA</div>
+          <h2 class="section-title">Built for the way<br />you actually listen.</h2>
         </div>
-
         <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-card-header">
-              <h3>Modular<br />AI Components</h3>
-              <img src="assets/dots.svg" alt="" class="feature-icon" />
-            </div>
-            <div class="feature-card-bar"></div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">◈</div>
+            <h3>Lossless Audio</h3>
+            <p>24-bit FLAC and MQA streaming. Hear every detail the artist intended — no compression, no compromise.</p>
           </div>
-          <div class="feature-card">
-            <div class="feature-card-header">
-              <h3>Adaptive<br />Web Architecture</h3>
-              <img src="assets/lines.svg" alt="" class="feature-icon" />
-            </div>
-            <div class="feature-card-bar"></div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">⬡</div>
+            <h3>Offline Mode</h3>
+            <p>Download entire albums and playlists. Your music travels with you, even when the signal doesn't.</p>
           </div>
-          <div class="feature-card">
-            <div class="feature-card-header">
-              <h3>Realtime<br />3D Interactions</h3>
-              <img src="assets/x-grid.svg" alt="" class="feature-icon" />
-            </div>
-            <div class="feature-card-bar"></div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">◉</div>
+            <h3>Smart Playlists</h3>
+            <p>AI that learns your taste without selling it. Playlists that fit your mood, not the algorithm's agenda.</p>
           </div>
-          <div class="feature-card">
-            <div class="feature-card-header">
-              <h3>Minimum Effort<br />Maximum Impact</h3>
-              <img src="assets/graph.svg" alt="" class="feature-icon" />
-            </div>
-            <div class="feature-card-bar"></div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">⬟</div>
+            <h3>Cross-Device Sync</h3>
+            <p>Start on your phone, continue on your desktop. Your queue, your history, your moment — everywhere.</p>
           </div>
-        </div>
-
-        <div class="features-dividers">
-          <div class="divider-line"></div>
-          <div class="divider-line"></div>
-          <div class="divider-line"></div>
-          <div class="divider-line"></div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">◈</div>
+            <h3>Artist Direct</h3>
+            <p>Exclusive drops, early releases, and live sessions direct from artists. No middlemen, no delays.</p>
+          </div>
+          <div class="feature-card glass-card">
+            <div class="feature-icon">⬡</div>
+            <h3>Zero Ads. Ever.</h3>
+            <p>Premium means premium. No interruptions, no upsells mid-song. Just you and the music.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Use Cases Section -->
-    <section id="use-cases" class="section-usecases">
-      <div class="usecases-inner">
-        <div class="usecases-bg-label">VEXEL</div>
-        <div class="usecases-content">
-          <h2 class="usecases-title">Vexel isn't just smart.<br />It learns, evolves, and adapts visually.</h2>
-          <div class="usecases-line"></div>
+    <!-- Artists Section -->
+    <section id="artists" class="section-artists">
+      <div class="section-inner">
+        <div class="section-header">
+          <h2 class="section-title">Featured Artists</h2>
+          <a href="#" class="see-all">View all →</a>
+        </div>
+        <div class="artists-row">
+          <div class="artist-card glass-card">
+            <div class="artist-avatar av-1"></div>
+            <div class="artist-name">Aurora Wave</div>
+            <div class="artist-genre">Electronic · Ambient</div>
+            <div class="artist-followers">2.4M followers</div>
+          </div>
+          <div class="artist-card glass-card">
+            <div class="artist-avatar av-2"></div>
+            <div class="artist-name">Luna Eclipse</div>
+            <div class="artist-genre">Synthwave · Pop</div>
+            <div class="artist-followers">5.1M followers</div>
+          </div>
+          <div class="artist-card glass-card">
+            <div class="artist-avatar av-3"></div>
+            <div class="artist-name">Neon Pulse</div>
+            <div class="artist-genre">Techno · House</div>
+            <div class="artist-followers">1.8M followers</div>
+          </div>
+          <div class="artist-card glass-card">
+            <div class="artist-avatar av-4"></div>
+            <div class="artist-name">Stellar Drift</div>
+            <div class="artist-genre">Neo-Soul · R&amp;B</div>
+            <div class="artist-followers">3.6M followers</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="cta" class="section-cta">
-      <div class="cta-inner">
-        <div class="cta-left">
-          <h2 class="cta-title">Launch<br />with Vexel</h2>
-          <button class="btn-outline">GET STARTED</button>
-          <div class="cta-avatars">
-            <div class="avatar avatar-1"></div>
-            <div class="avatar avatar-2"></div>
-            <div class="avatar avatar-3"></div>
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-pricing">
+      <div class="section-inner">
+        <div class="section-header centered">
+          <div class="section-tag">// PLANS</div>
+          <h2 class="section-title">Simple pricing.<br />No surprises.</h2>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-card glass-card">
+            <div class="plan-name">Free</div>
+            <div class="plan-price"><span class="price-num">$0</span><span class="price-per">/mo</span></div>
+            <ul class="plan-features">
+              <li>✓ 80M+ songs</li>
+              <li>✓ Standard audio quality</li>
+              <li>✓ Mobile &amp; desktop</li>
+              <li class="dim">✗ Offline listening</li>
+              <li class="dim">✗ Lossless audio</li>
+              <li class="dim">✗ Ad-free</li>
+            </ul>
+            <a href="#" class="btn-outline btn-block">Start Free</a>
           </div>
-          <p class="cta-footer">© 2025 — VEXEL INC. All rights reserved &nbsp;<span class="footer-dim">3D MODEL BY </span><span class="footer-accent">TAMMINEN</span></p>
+          <div class="pricing-card glass-card pricing-featured">
+            <div class="plan-badge">MOST POPULAR</div>
+            <div class="plan-name">Premium</div>
+            <div class="plan-price"><span class="price-num">$9</span><span class="price-per">/mo</span></div>
+            <ul class="plan-features">
+              <li>✓ Everything in Free</li>
+              <li>✓ Lossless 24-bit audio</li>
+              <li>✓ Unlimited offline</li>
+              <li>✓ Zero ads</li>
+              <li>✓ Smart playlists</li>
+              <li>✓ Artist Direct access</li>
+            </ul>
+            <a href="#" class="btn-primary btn-block">Start 30-Day Trial</a>
+          </div>
+          <div class="pricing-card glass-card">
+            <div class="plan-name">Family</div>
+            <div class="plan-price"><span class="price-num">$15</span><span class="price-per">/mo</span></div>
+            <ul class="plan-features">
+              <li>✓ 6 Premium accounts</li>
+              <li>✓ Individual profiles</li>
+              <li>✓ Parental controls</li>
+              <li>✓ Shared Family Mix</li>
+              <li>✓ All Premium features</li>
+              <li>✓ Priority support</li>
+            </ul>
+            <a href="#" class="btn-outline btn-block">Get Family Plan</a>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <img src="assets/zendora-logo.svg" alt="Zendora" class="footer-logo" />
+        <p class="footer-tagline">Music that moves you.</p>
+        <p class="footer-copy">© 2026 Zendora Inc. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="main.js" type="module"></script>
   </body>
