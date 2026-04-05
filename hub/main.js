@@ -1,230 +1,116 @@
-// Virtual File System representing Zendora
-const fileSystem = {
-  id: 'root',
-  name: 'Zendora',
-  type: 'folder',
-  theme: 'folder-system',
-  children: [
-    {
-      id: 'brand',
-      name: 'Brand',
-      type: 'folder',
-      theme: 'folder-default',
-      iconText: '🎨'
-    },
-    {
-      id: 'clients',
-      name: 'Clients',
-      type: 'folder',
-      theme: 'folder-default',
-      iconText: '🤝'
-    },
-    {
-      id: 'operations',
-      name: 'Operations',
-      type: 'folder',
-      theme: 'folder-system',
-      iconText: '⚙️',
-      children: [
-        {
-          id: 'tools',
-          name: 'Tools Stack',
-          type: 'folder',
-          theme: 'folder-tools',
-          iconText: '🛠️',
-          children: [
-            { id: 'firecrawl', name: 'Firecrawl', type: 'folder', theme: 'folder-tools', logoUrl: 'https://mintlify.s3.us-west-1.amazonaws.com/firecrawl/logo/logo.png' },
-            { id: 'chatgpt', name: 'ChatGPT', type: 'folder', theme: 'folder-ai', iconText: 'GPT' },
-            { id: 'cursor', name: 'Cursor', type: 'folder', theme: 'folder-system', iconText: '⌨️' },
-            { id: 'github', name: 'GitHub', type: 'folder', theme: 'folder-system', iconText: 'GH' },
-            { id: 'n8n', name: 'n8n', type: 'folder', theme: 'folder-social', iconText: '⚡' },
-            { id: 'notion', name: 'Notion', type: 'folder', theme: 'folder-default', iconText: 'N' },
-            { id: 'make', name: 'Make', type: 'folder', theme: 'folder-design', iconText: 'M' }
-          ]
-        },
-        { id: 'insights', name: 'Insights', type: 'folder', theme: 'folder-marketing', iconText: '📈' },
-        { id: 'SOPs', name: 'SOPs', type: 'folder', theme: 'folder-default', iconText: '📋' },
-        { id: 'finance', name: 'Finance', type: 'folder', theme: 'folder-marketing', iconText: '💳' }
-      ]
-    },
-    {
-      id: 'services',
-      name: 'Services',
-      type: 'folder',
-      theme: 'folder-design',
-      iconText: '🚀',
-      children: [
-        { id: 'ai-automations', name: 'AI Automations', type: 'folder', theme: 'folder-ai', iconText: '🤖' },
-        { id: 'digital-design', name: 'Digital Design', type: 'folder', theme: 'folder-design', iconText: '✨' },
-        { id: 'marketing', name: 'Marketing', type: 'folder', theme: 'folder-marketing', iconText: '📣' },
-        { id: 'social-media', name: 'Social Media', type: 'folder', theme: 'folder-social', iconText: '📱' },
-        { id: 'freelance-gigs', name: 'Freelance Gigs', type: 'folder', theme: 'folder-default', iconText: '💼' }
-      ]
-    },
-    {
-      id: 'skills',
-      name: 'Skills',
-      type: 'folder',
-      theme: 'folder-ai',
-      iconText: '🧠',
-      children: [
-        { id: 'ai-prompts', name: 'AI Prompts', type: 'folder', theme: 'folder-ai', iconText: '💬' },
-        { id: 'automation-recipes', name: 'Recipes', type: 'folder', theme: 'folder-social', iconText: '🍳' },
-        { id: 'content-frameworks', name: 'Frameworks', type: 'folder', theme: 'folder-marketing', iconText: '🏗️' }
-      ]
-    },
-    {
-      id: '.agents',
-      name: '.agents',
-      type: 'folder',
-      theme: 'folder-system',
-      iconText: '🕵️'
-    },
-    {
-      id: 'readme',
-      name: 'README.md',
-      type: 'file',
-      extension: 'md'
-    }
-  ]
-};
+// ============================================================
+// ZENDORA — main.js
+// HD starfield + navbar + mobile menu + scroll reveal
+// ============================================================
 
-// State
-let pathStack = [fileSystem];
-let currentFolder = fileSystem;
+// ---------- HD Starfield ----------
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+const DPR = window.devicePixelRatio || 1;
+let W, H;
 
-// DOM Elements
-const fileGrid = document.getElementById('file-grid');
-const breadcrumb = document.getElementById('breadcrumb');
-const btnBack = document.getElementById('btn-back');
-const sidebarItems = document.querySelectorAll('.sidebar-item');
-const itemCount = document.getElementById('item-count');
-const clock = document.getElementById('clock');
-
-// Initialization
-function init() {
-  renderCurrentFolder();
-  setupEventListeners();
-  updateClock();
-  setInterval(updateClock, 60000); // UI Clock
+function resize() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width  = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.scale(DPR, DPR);
+  initStars();
 }
 
-function updateClock() {
-  const now = new Date();
-  clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
+const STAR_COUNT = 320;
+const stars = [];
+function rand(min, max) { return min + Math.random() * (max - min); }
 
-// Find folder by ID recursively
-function findNodeById(node, id) {
-  if (node.id === id) return node;
-  if (node.children) {
-    for (let child of node.children) {
-      const found = findNodeById(child, id);
-      if (found) return found;
-    }
-  }
-  return null;
-}
-
-// Render Folder Contents
-function renderCurrentFolder() {
-  fileGrid.innerHTML = '';
-  
-  // Update UI Elements
-  btnBack.style.opacity = pathStack.length > 1 ? '1' : '0.5';
-  btnBack.style.cursor = pathStack.length > 1 ? 'pointer' : 'default';
-  
-  // Breadcrumb
-  breadcrumb.textContent = pathStack.map(p => p.name).join(' > ');
-  itemCount.textContent = `${currentFolder.children ? currentFolder.children.length : 0} items`;
-
-  // Render Grid
-  if (currentFolder.children) {
-    currentFolder.children.forEach(item => {
-      const itemEl = document.createElement('div');
-      itemEl.className = 'grid-item';
-      
-      if (item.type === 'folder') {
-        const logoHTML = item.logoUrl 
-          ? `<img src="${item.logoUrl}" class="tool-img-logo" alt="${item.name}">` 
-          : `<span class="tool-logo">${item.iconText || ''}</span>`;
-
-        itemEl.innerHTML = `
-          <div class="folder-icon ${item.theme}">
-            <div class="folder-back"></div>
-            <div class="folder-front">${logoHTML}</div>
-          </div>
-          <div class="item-name">${item.name}</div>
-        `;
-        
-        itemEl.addEventListener('dblclick', () => {
-          pathStack.push(item);
-          currentFolder = item;
-          updateSidebarActive();
-          renderCurrentFolder();
-        });
-      } else {
-        // File Rendering
-        itemEl.innerHTML = `
-          <div class="file-icon">${item.extension}</div>
-          <div class="item-name">${item.name}</div>
-        `;
-      }
-      
-      fileGrid.appendChild(itemEl);
+function initStars() {
+  stars.length = 0;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const tier = Math.random();
+    let radius, baseOpacity;
+    if (tier > 0.97)      { radius = rand(1.4, 2.2); baseOpacity = rand(0.75, 1.0); }
+    else if (tier > 0.85) { radius = rand(0.7, 1.3); baseOpacity = rand(0.45, 0.75); }
+    else                  { radius = rand(0.2, 0.65); baseOpacity = rand(0.15, 0.45); }
+    stars.push({
+      x: rand(0, W), y: rand(0, H), radius, baseOpacity,
+      opacity: baseOpacity,
+      twinkleSpeed: rand(0.0004, 0.0018),
+      twinkleAmp:   rand(0.04, 0.18) * baseOpacity,
+      phase: rand(0, Math.PI * 2),
+      vx: rand(-0.008, 0.008),
+      vy: rand(-0.004, 0.004),
     });
-  } else {
-    fileGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); margin-top: 40px;">This folder is empty</div>';
   }
 }
 
-function updateSidebarActive() {
-  sidebarItems.forEach(el => el.classList.remove('active'));
-  // Simple matching logic
-  const match = Array.from(sidebarItems).find(el => el.dataset.path === currentFolder.id);
-  if (match) match.classList.add('active');
-}
+let t = 0;
+function drawStars() {
+  t++;
+  requestAnimationFrame(drawStars);
+  ctx.clearRect(0, 0, W, H);
+  for (const s of stars) {
+    s.opacity = s.baseOpacity + Math.sin(t * s.twinkleSpeed * 60 + s.phase) * s.twinkleAmp;
+    s.opacity = Math.max(0.02, Math.min(1, s.opacity));
+    s.x += s.vx; s.y += s.vy;
+    if (s.x < 0) s.x = W; if (s.x > W) s.x = 0;
+    if (s.y < 0) s.y = H; if (s.y > H) s.y = 0;
 
-function setupEventListeners() {
-  // Back button
-  btnBack.addEventListener('click', () => {
-    if (pathStack.length > 1) {
-      pathStack.pop();
-      currentFolder = pathStack[pathStack.length - 1];
-      updateSidebarActive();
-      renderCurrentFolder();
+    if (s.radius > 1.2) {
+      const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.radius * 3.5);
+      glow.addColorStop(0,    `rgba(255,255,255,${s.opacity})`);
+      glow.addColorStop(0.35, `rgba(255,255,255,${s.opacity * 0.4})`);
+      glow.addColorStop(1,    'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = glow;
+      ctx.fill();
     }
-  });
-
-  // Sidebar navigation
-  sidebarItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-      sidebarItems.forEach(el => el.classList.remove('active'));
-      item.classList.add('active');
-      
-      const pathId = item.dataset.path;
-      const action = item.dataset.action;
-
-      if (action === 'insights') {
-        alert("Action Triggered: Running the /insights operational audit...");
-        return;
-      }
-
-      if (pathId === 'root') {
-        pathStack = [fileSystem];
-        currentFolder = fileSystem;
-        renderCurrentFolder();
-      } else {
-        const found = findNodeById(fileSystem, pathId);
-        if (found) {
-          // Rebuild stack up to root is complex, here we just jump directly
-          pathStack = [fileSystem, found];
-          currentFolder = found;
-          renderCurrentFolder();
-        }
-      }
-    });
-  });
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.opacity})`;
+    ctx.fill();
+  }
 }
 
-init();
+resize();
+window.addEventListener('resize', () => {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  resize();
+});
+drawStars();
+
+// ---------- Navbar ----------
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ---------- Mobile Menu ----------
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose  = document.getElementById('menu-close');
+const mobileMenu = document.getElementById('mobile-menu');
+menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+menuClose.addEventListener('click',  () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+// ---------- Scroll Reveal ----------
+const revealEls = document.querySelectorAll(
+  '.hero-tag, .hero-title, .hero-desc, .hero-actions, .hero-stats, .player-card, ' +
+  '.section-title, .see-all, .section-tag, ' +
+  '.album-card, .feature-card, .artist-card, .pricing-card, ' +
+  '.footer-logo, .footer-tagline, .footer-copy'
+);
+revealEls.forEach((el, i) => {
+  el.classList.add('reveal');
+  const siblings = [...el.parentElement.children].filter(c => c.classList.contains('reveal'));
+  const idx = siblings.indexOf(el);
+  if (idx > 0 && idx <= 3) el.classList.add(`reveal-delay-${idx}`);
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
