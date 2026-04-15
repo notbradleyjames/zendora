@@ -19,24 +19,16 @@ Whether you're solo, building a team, or directing AI agents to do the work — 
 ```
 zendora/
 ├── README.md                  ← You are here
-├── brand/                     ← Brand strategy, voice, positioning
-├── services/                  ← One folder per service pillar
-│   ├── ai-automations/
-│   ├── digital-design/
-│   ├── marketing/
-│   ├── social-media/
-│   └── freelance-gigs/
-├── skills/                    ← Reusable AI prompts, recipes, frameworks
-│   ├── ai-prompts/
-│   ├── automation-recipes/
-│   └── content-frameworks/
-├── clients/                   ← Per-client project folders + templates
-│   └── _template/
-├── operations/                ← SOPs, finance, tools stack
-│   ├── SOPs/
-│   └── finance/
-└── .agents/
-    └── workflows/             ← Agent workflow definitions
+├── apps/                      ← Client-facing applications & dashboards
+├── business/                  ← Core agency operations
+│   ├── brand/                 ← Brand strategy, voice, positioning
+│   ├── clients/               ← Per-client project folders + templates
+│   ├── operations/            ← SOPs, finance, tools stack
+│   ├── portfolios/            ← Showcase & mock sites
+│   └── services/              ← One folder per service pillar
+└── hermes_core/               ← AI Logic & Agent Infrastructure
+    ├── .agents/               ← Agent workflow definitions
+    └── skills/                ← Reusable AI prompts, recipes, frameworks
 ```
 
 ---
@@ -57,10 +49,10 @@ zendora/
 
 Every service you offer is powered by **reusable skills** — modular prompt packs, templates, and workflows you build once and deploy repeatedly. The goal is:
 
-1. **Build the skill** → Document it in `skills/`
-2. **Ship the service** → Use it in `services/`
-3. **Systemize delivery** → Track it in `operations/SOPs/`
-4. **Scale with AI** → Automate it in `.agents/workflows/`
+1. **Build the skill** → Document it in `hermes_core/skills/`
+2. **Ship the service** → Use it in `business/services/`
+3. **Systemize delivery** → Track it in `business/operations/SOPs/`
+4. **Scale with AI** → Automate it in `hermes_core/.agents/workflows/`
 
 ---
 
@@ -68,33 +60,33 @@ Every service you offer is powered by **reusable skills** — modular prompt pac
 
 Zendora uses **Firecrawl** (integrated as an MCP server) for web intelligence — scraping, searching, crawling, and autonomous deep research. Config lives in `.vscode/mcp.json`.
 
-- **Recipes**: See `skills/automation-recipes/firecrawl-recipes.md` for usage patterns
+- **Recipes**: See `hermes_core/skills/automation-recipes/firecrawl-recipes.md` for usage patterns
 - **Self-improvement**: Run `/insights` to audit operations and research upgrades
-- **Insight reports**: Saved to `operations/insights/`
+- **Insight reports**: Saved to `business/operations/insights/`
 
 ---
 
 ## 📋 Quick Start
 
 ### New Client?
-1. Duplicate `clients/_template/` → rename to client name
+1. Duplicate `business/clients/_template/` → rename to client name
 2. Fill in `brief.md` during discovery call
-3. Copy the right service proposal from `services/[pillar]/proposals/`
+3. Copy the right service proposal from `business/services/[pillar]/proposals/`
 4. Log everything in `project-log.md`
 
 ### New Service Offering?
-1. Review the appropriate `services/[pillar]/README.md`
-2. Pull relevant prompts from `skills/ai-prompts/`
-3. Run the delivery SOP in `operations/SOPs/project-delivery.md`
+1. Review the appropriate `business/services/[pillar]/README.md`
+2. Pull relevant prompts from `hermes_core/skills/ai-prompts/`
+3. Run the delivery SOP in `business/operations/SOPs/project-delivery.md`
 
 ### Need to Automate Something?
-1. Check `skills/automation-recipes/` for existing recipes
-2. Or build a new one using the templates in `services/ai-automations/`
+1. Check `hermes_core/skills/automation-recipes/` for existing recipes
+2. Or build a new one using the templates in `business/services/ai-automations/`
 
 ### Launching Your First Leads?
-1. Review the **[Portfolios Showcase](file:///home/christianantoniazzi98/zendora/portfolios/GUIDE.md)** for strategy.
-2. Use the **[Fiverr Gig Templates](file:///home/christianantoniazzi98/zendora/portfolios/FIVERR_GIG_PROFILES.md)** to post your services.
-3. Preview and capture screenshots of the **[Mock Sites](file:///home/christianantoniazzi98/zendora/portfolios/mock-sites/)** for your gallery.
+1. Review the **[Portfolios Showcase](file:///home/christianantoniazzi98/zendora/business/portfolios/GUIDE.md)** for strategy.
+2. Use the **[Fiverr Gig Templates](file:///home/christianantoniazzi98/zendora/business/portfolios/FIVERR_GIG_PROFILES.md)** to post your services.
+3. Preview and capture screenshots of the **[Mock Sites](file:///home/christianantoniazzi98/zendora/business/portfolios/mock-sites/)** for your gallery.
 
 ---
 
@@ -106,7 +98,7 @@ Zendora uses **Firecrawl** (integrated as an MCP server) for web intelligence �
 - **Vision**: Be the most trusted creative-tech agency for founders who move fast.
 - **Values**: Speed. Clarity. Excellence. Honesty.
 
-See `brand/positioning.md` for the full brand strategy.
+See `business/brand/positioning.md` for the full brand strategy.
 
 ---
 
