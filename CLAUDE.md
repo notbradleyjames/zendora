@@ -6,7 +6,7 @@ This file provides AI assistants with everything needed to work effectively in t
 
 ## What This Repository Is
 
-**Zendora** is a **Business Operating System** for a creative-tech agency offering five service pillars: AI Automations, Digital Design, Marketing, Social Media, and Freelance/Gigs. This is not a traditional software project — it's a structured system of documentation, templates, SOPs, agent workflows, and a small interactive hub app.
+**Zendora** is a **Business Operating System** for a creative-tech agency offering five service pillars: AI Automations, Digital Design, Marketing, Social Media, and Freelance/Gigs. This is not a traditional software project — it's a structured system of documentation, templates, SOPs, agent workflows, backend logic, and interactive applications.
 
 **Mission**: Empower businesses with intelligent automation and bold creative.
 
@@ -16,34 +16,39 @@ This file provides AI assistants with everything needed to work effectively in t
 
 ```
 zendora/
-├── .agents/workflows/        # Agent workflow definitions (frontmatter-tagged markdown)
-├── .vscode/mcp.json          # Firecrawl MCP server config
-├── brand/                    # Brand positioning, voice/tone, 90-day roadmap
-├── clients/                  # Per-client project folders
-│   └── _template/            # Template to duplicate for new clients
-├── docs/                     # Deep-dive market research and strategy
-├── hub/                      # Interactive virtual file system (Vite app)
-│   ├── index.html
-│   ├── main.js               # Folder navigation logic (vanilla JS ES modules)
-│   ├── style.css             # Glassmorphism dark-mode design system
-│   └── package.json          # Vite 5.0.0 only dependency
-├── operations/
-│   ├── SOPs/                 # client-onboarding.md, project-delivery.md
-│   ├── finance/              # pricing-guide.md
-│   ├── insights/             # Research output from /insights command
-│   └── tools/                # 30+ tool integration guides
-├── portfolios/               # Mock sites (HTML/CSS/JS), Fiverr gig templates
-├── services/                 # One folder per service pillar
-│   ├── ai-automations/
-│   ├── digital-design/
-│   ├── marketing/
-│   ├── social-media/
-│   └── freelance-gigs/
-├── skills/
-│   ├── ai-prompts/           # master-prompts.md — production LLM prompts
-│   ├── automation-recipes/   # firecrawl-recipes.md + n8n/Make blueprints
-│   └── content-frameworks/
-├── test_firecrawl.py         # Manual integration test for Firecrawl API
+├── apps/                          # Client-facing applications
+│   ├── index.html                 # Main hub entry point
+│   ├── main.js                    # Folder navigation logic (vanilla JS ES modules)
+│   ├── style.css                  # Dark-mode design system
+│   ├── package.json               # Vite 5.0.0
+│   ├── zendora-ui/                # Svelte + Vite UI application
+│   └── assets/                    # UI assets and resources
+├── business/                      # Core agency operations
+│   ├── brand/                     # Brand positioning, voice/tone, 90-day roadmap
+│   ├── clients/                   # Per-client project folders
+│   │   └── _template/             # Template to duplicate for new clients
+│   ├── operations/
+│   │   ├── SOPs/                  # Standard operating procedures
+│   │   ├── finance/               # Pricing guides and financial templates
+│   │   └── tools/                 # 37+ tool integration guides
+│   ├── portfolios/                # Mock sites, Fiverr gig templates, showcases
+│   └── services/                  # One folder per service pillar
+│       ├── ai-automations/
+│       ├── digital-design/
+│       ├── marketing/
+│       ├── social-media/
+│       └── freelance-gigs/
+├── hermes_core/                   # AI logic and agent infrastructure
+│   ├── .agents/
+│   │   └── workflows/             # Agent workflow definitions (frontmatter-tagged markdown)
+│   ├── hermes-backend/            # Backend services and API
+│   ├── skills/                    # Reusable AI assets
+│   │   ├── ai-prompts/            # master-prompts.md — production LLM prompts
+│   │   ├── automation-recipes/    # firecrawl-recipes.md + n8n/Make blueprints
+│   │   └── content-frameworks/    # Content structure templates
+│   └── test_firecrawl.py          # Manual integration test for Firecrawl API
+├── docs/                          # Deep-dive market research and strategy
+├── .vscode/mcp.json               # Firecrawl MCP server config
 └── README.md
 ```
 
@@ -65,17 +70,41 @@ zendora/
 
 ---
 
-## Hub App (the only runnable code)
+## Applications
+
+### Zendora Hub (`apps/`)
+
+The main interactive application — a macOS-inspired folder browser that renders the repository as a navigable virtual file system.
 
 ```bash
-cd hub
-npm install        # Install Vite
+cd apps
+npm install        # Install Vite 5.0.0
 npm run dev        # Dev server at localhost:5173
 npm run build      # Production build → dist/
 npm run preview    # Preview the build
 ```
 
-The hub is a macOS-inspired folder browser that renders the repository as a navigable virtual file system. The JS is entirely vanilla with ES modules. There is no test runner — test manually by running `npm run dev`.
+**Tech**: Vanilla JavaScript (ES Modules), CSS custom properties, Vite 5.0.0
+- No frameworks, no build complexity — pure JS
+- Test manually by running `npm run dev`
+- No automated test runner
+
+### Zendora UI (`apps/zendora-ui/`)
+
+A Svelte + Vite-based UI application for more complex dashboard and interactive features.
+
+```bash
+cd apps/zendora-ui
+npm install        # Install dependencies
+npm run dev        # Dev server
+npm run build      # Production build
+```
+
+**Tech**: Svelte, Vite, TypeScript
+
+### Hermes Backend (`hermes_core/hermes-backend/`)
+
+Backend services and API endpoints that power the agent workflows and integrations.
 
 ---
 
@@ -83,46 +112,48 @@ The hub is a macOS-inspired folder browser that renders the repository as a navi
 
 Config: `.vscode/mcp.json`
 
-```json
-{
-  "servers": {
-    "firecrawl": {
-      "command": "npx",
-      "args": ["-y", "firecrawl-mcp"],
-      "env": { "FIRECRAWL_API_KEY": "fc-4891a42f78aa46bd9155a957a4f36a46" }
-    }
-  }
-}
-```
+The Firecrawl MCP server enables web intelligence — scraping, searching, crawling, and autonomous research directly in the Claude Code environment.
 
-Available tools: `firecrawl_search`, `firecrawl_scrape`, `firecrawl_batch_scrape`, `firecrawl_map`, `firecrawl_crawl`, `firecrawl_extract`, `firecrawl_agent`.
+**Available tools**: 
+- `firecrawl_search` — Find URLs matching your query
+- `firecrawl_scrape` — Extract markdown from a single URL
+- `firecrawl_batch_scrape` — Extract from multiple URLs
+- `firecrawl_map` — Get site structure/hierarchy
+- `firecrawl_crawl` — Crawl entire domains with depth limits
+- `firecrawl_extract` — Extract structured data with a schema
+- `firecrawl_agent` — Async autonomous research (poll for results)
 
-**Usage recipes**: `skills/automation-recipes/firecrawl-recipes.md`
+**Usage recipes**: See `hermes_core/skills/automation-recipes/firecrawl-recipes.md`
 
-Key tips:
+**Key tips**:
 - Always use `onlyMainContent: true` for markdown scrapes
 - Use `firecrawl_search` before `firecrawl_scrape` — don't guess URLs
 - Set crawl limits: `maxDepth: 2`, `limit: 50`
 - `firecrawl_agent` is async — poll `firecrawl_agent_status` for results
+- See `business/operations/tools/firecrawl/` for detailed integration guides
 
 ---
 
 ## Agent Workflows
 
-Workflows in `.agents/workflows/` are written for autonomous execution. Each file has frontmatter:
+Workflows in `hermes_core/.agents/workflows/` are markdown files written for autonomous execution. Each file has YAML frontmatter:
 
 ```markdown
 ---
 description: Brief description of what this workflow does
 ---
+
+[Workflow steps and instructions]
 ```
 
-Available workflows:
+**Available workflows**:
 - `new-client-onboarding.md` — From "yes" to kick-off (8 steps)
 - `build-ai-automation.md` — ACE Framework: Architect → Code → Execute
 - `insights.md` — Operational audit using Firecrawl research
 - `launch-fiverr-gig.md` — Fiverr listing creation workflow
 - `upwork-proposal.md` — Upwork proposal generation workflow
+
+These workflows are designed to be triggered by the backend (`hermes_core/hermes-backend/`) or run directly by AI agents.
 
 ---
 
@@ -150,20 +181,34 @@ No "Final_FINAL_v3" naming — use versioned names or `_Final` suffix only once.
 - Emojis used for visual hierarchy in documentation (preserve existing style when editing)
 
 ### New Client Workflow
-1. Duplicate `clients/_template/` → rename to `clients/[client-name]/`
-2. Fill in `clients/[client-name]/brief.md` during discovery
-3. Track all work in `clients/[client-name]/project-log.md`
-4. Follow delivery SOP: `operations/SOPs/project-delivery.md`
+1. Duplicate `business/clients/_template/` → rename to `business/clients/[client-name]/`
+2. Fill in `business/clients/[client-name]/brief.md` during discovery
+3. Track all work in `business/clients/[client-name]/project-log.md`
+4. Follow delivery SOP: `business/operations/SOPs/project-delivery.md`
+5. Use service proposals from `business/services/[pillar]/proposals/`
 
 ### New Service Offering
-1. Read `services/[pillar]/README.md` for playbook
-2. Pull prompts from `skills/ai-prompts/master-prompts.md`
-3. Run the relevant service SOP
+1. Read `business/services/[pillar]/README.md` for the playbook
+2. Pull relevant prompts from `hermes_core/skills/ai-prompts/master-prompts.md`
+3. Document delivery process in `business/operations/SOPs/`
+4. Create recipes in `hermes_core/skills/automation-recipes/` if applicable
 
 ### The Skill Creator Pattern
 ```
-Build the skill (skills/)  →  Ship the service (services/)  →  Systemize (operations/SOPs/)  →  Automate (.agents/workflows/)
+Build the skill (hermes_core/skills/)
+    ↓
+Ship the service (business/services/[pillar]/)
+    ↓
+Systemize delivery (business/operations/SOPs/)
+    ↓
+Scale with AI (hermes_core/.agents/workflows/)
 ```
+
+### Tool Integration
+When working with external tools:
+1. Review the integration guide: `business/operations/tools/[tool-name]/`
+2. Follow setup instructions for API keys and authentication
+3. Document any unique workflows or gotchas for team knowledge
 
 ---
 
@@ -177,7 +222,7 @@ Build the skill (skills/)  →  Ship the service (services/)  →  Systemize (op
 | Social Media | Buffer, Later, CapCut | $400/mo |
 | Freelance/Gigs | Upwork, Fiverr | $50 |
 
-Full pricing: `operations/finance/pricing-guide.md`
+Full pricing: `business/operations/finance/pricing-guide.md`
 
 ---
 
@@ -200,26 +245,48 @@ When writing any content for Zendora:
 - **Energetic** — excited about what's possible
 - **Human** — real people, not a faceless agency
 
-Full guide: `brand/voice-and-tone.md`
+Full guide: `business/brand/voice-and-tone.md`
 
 ---
 
-## Self-Improvement (`/insights`)
+## Self-Improvement & Research
 
-Run the `insights` workflow to audit operations and research upgrades:
-1. Uses `firecrawl_search` + `firecrawl_scrape` to research best practices
-2. Compares findings against current SOPs and toolstack
-3. Saves output to `operations/insights/[date]-insights.md`
+Use the `/insights` command to audit operations and research upgrades:
+1. The `insights` workflow uses Firecrawl (`firecrawl_search` + `firecrawl_scrape`) to research best practices
+2. Compares findings against current SOPs in `business/operations/SOPs/`
+3. Analyzes tool stack in `business/operations/tools/`
+4. Saves detailed reports to `business/operations/insights/[date]-insights.md`
+
+This keeps Zendora's processes and integrations continuously evolving with industry best practices.
 
 ---
 
-## Git Branches
+## Development Workflow
 
-- `main` — stable, production state
+### Git Branches
+
+- `main` — stable, production state (do not push directly)
 - `claude/*` — AI-created branches for documentation and feature work
+  - Example: `claude/add-claude-documentation-5wUE7`
+  - Format: `claude/[description]-[random-id]`
+  - Always develop on the designated branch
+  - Commit work with clear, descriptive messages
+  - Push to the designated branch using `git push -u origin [branch-name]`
 
----
+### Testing & Deployment
 
-## No CI/CD
+**No CI/CD pipeline** — There are no automated tests or GitHub Actions.
 
-There is no automated test runner, GitHub Actions, or deployment pipeline. The only runnable code is the hub Vite app. Test it manually with `npm run dev`.
+- **Hub app** (`apps/`): Test manually with `npm run dev`, verify functionality in browser
+- **Svelte UI** (`apps/zendora-ui/`): Test manually, check HMR works correctly
+- **Backend** (`hermes_core/hermes-backend/`): Manual integration testing
+- **Workflows**: Run `/insights` or relevant workflows to validate agent logic
+- **Scripts**: Test `hermes_core/test_firecrawl.py` manually if modifying Firecrawl integration
+
+### Code Quality
+
+- Keep code simple and focused
+- Don't add features beyond what's requested
+- Documentation updates are encouraged for clarity
+- Follow existing naming conventions (kebab-case for folders, snake_case for config files)
+- Preserve the brand voice when writing documentation
